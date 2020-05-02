@@ -1,0 +1,14 @@
+Mongoose is a npm module used for better compatiblity between node and mongodb. Apart from doing basing CRUD operation, it provide authentication(
+    for ex: document created by user 1 should not be visible to user 2
+), validation for document etc
+
+Mongoose basically wraps up the mongodb library with other good functionality. We donot need to use low level mongodb api for our project but can
+use mongoose instead.
+
+Mongoose falls under broader category of tools called as ODM(OBJECT DOCUMENT MAPPER). Basically we map our data (object) in node to document in
+mongoose database.
+                object --> document
+
+Mongoose provide some built-in validation which can be listed when creating model. We can create custom validation in mongoose using function 
+validate(value) inside the model
+

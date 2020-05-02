@@ -1,0 +1,43 @@
+We can connect our database directly from node application. There are two types of database
+
+1. SQL(structured query language) database. ex: mySQL, postgreSQL
+2. Non SQL (No only structured query language)database: ex: MongoDB
+
+There are ceratin difference between above two:
+In SQL db we store data in the form of table while in non sql we store data in the form of collection.(array of objects).
+In SQl db each row in table is referred as record while in non sql it is referred to as document(each object => actually json).
+In SQL db each entry is referred by column while in non sql it is referred to as field.
+
+Therefore for non sql db : Collection is sum of all documents and documents can have any number of fields.
+
+Once installed mongodb. We need to create one data folder . Then we need to run a executable file
+>> /Users/saifisl/mongodb/bin/mongod --dbpath=/Users/saifisl/mongo-data
+Now the mongodb server is up and running. Now we can connect mongodb to node application. By default mongodb start on port 27017.Insatll mongodb 
+npm package in your app.
+
+Now initialize and connect node application to mongodb server (see code how to do it: mongodb.js)
+
+1. initialize connection:
+const mongodb = require('mongodb');  //It will return an mongodb obj
+
+2.connection url
+const connectionURL = 'mongodb://127.0.0.1:27017'
+
+3. This is our database name and we can define it over in node application. No need to define it from GUI or from mongodb
+const databaseName = 'task-manager' 
+
+4. Connect to server
+MongoClient.connect(connectionURL, { useNewUrlParser: true}, (err, client) => {
+    if(err){
+        return console.log('Unable to connect to database')
+    }
+    console.log('Connected correctly !')
+    const db = client.db(databaseName);
+
+})  
+
+
+Promises are basically an extension of callback fn to handle asyn code
+
+   
+

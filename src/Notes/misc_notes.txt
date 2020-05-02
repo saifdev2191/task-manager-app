@@ -1,0 +1,69 @@
+when-should-you-use-path-variable-and-query-parameter-a346790e8a6d ??
+https://medium.com/@fullsour/when-should-you-use-path-variable-and-query-parameter-a346790e8a6dhttps://medium.com/@fullsour/when-should-you-use-path-variable-and-query-parameter-a346790e8a6d
+
+Why we use env variables? 
+1. Customizablity: There are certain parameters that are different for development, testing and production. Therefore we cannot
+hardcode them to suitable to only one type. 
+Ex : port number on which server is running is 3000 for local development and somewhat else while running in production which is 
+provided by production server .Therefore we cannot hardcode port number.
+
+Ex: connecting mongodb 
+development: mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api')
+production:
+
+
+2. Security: 
+Ex: You need to provide api key via env variables and should not write it directly in java script file. Env varibales donot
+get committed and hence nobody can ever get to know your api key.
+
+Ex: jwt token 
+
+
+To set up env variables for development mode:
+create config folder --> dev.env file to set up develeopment variables. Note: we donot commit config folder onto github
+    PORT=3000
+Now u need to take leverage of env variable defined in this dev.env file. But problem is every OS has different way of setting up env 
+variable.Therefore we need sth that make setting up env variable OS independent. To do so we use npm module env-cmd.
+This module will load up the env variable define in .env file so that we can use them in our code.
+Note: We only need this module locally so install with --save-dev or -D flag
+
+Question? How env-cmd module load the dev.env file in your node application?
+Ans: You need to modify your run script for development modein package.json
+                "dev":"env-cmd src/config/dev.env nodemon src/index.js"
+
+Note: If you change env variavles, you need to restart the application. Nodemon won't detect those changes.
+Similarly we set env variables for jwt secret key, mongodb address and sendgrid api key
+
+For development mode:
+PORT=3000
+APIKEY=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
+MONGOOSEURL=mongodb://127.0.0.1:27017/task-manager-api
+JWTSECRETKEY=thisismynewcourse
+
+To set up env variables for production mode:
+PORT: its value in production is provided by heroku and we just need to read its value from env variable PORT and thats what we
+are doing in server.js
+
+MONGOOSEURL: For production we need mongodb cloud service which is provided by many carriers. Mongodb itself provide cloud service
+known as mongodb atlas. We need to go to mongodbb atlas and fill the required fields.
+Create account --> Choose all free configurations --> Click on create cluster (it will take 5 mins to craete cluster) --> Click
+on connect button once cluster is created --> Provide list of IP address that can access the db (0.0.0.0/0 to whitelist all IP) -->
+Choose username and password --> Now u can see your URI connection string(ex: ) --> Now u need to connect to mongodb atlas to ur machine --> U can choose mongodb compass for that -->
+Go to mongodb compass and disconnect from local host and click on new connection --> Fill the field poped up in mongodb compass -->
+u will require hostname which u can get from mongodbb atlas URI and fill up username and password u set up earlier --> Finally click 
+on Connect button to connect tto mongodb atlas from ur machine.
+
+JWTSECRETKEY and APIKEY will remain in both development and production. We just set up them as env variables for security purpose.
+
+//Deployment on heroku
+1. Initialize git: git init 
+2. Ignore nodemodules and config file. They donot need to get committed onto git. Add them to .gitignore file . So if someone
+download our repo, they need to set up thhier own config file and run the project.
+
+
+
+
+
+
+
+
